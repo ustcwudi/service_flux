@@ -1,0 +1,38 @@
+{
+  "description": "限制",
+  "fields": [
+    {
+      "name": "Role",
+      "type": "id",
+      "link": "Role",
+      "description": "角色",
+      "search": "equal"
+    },
+    {
+      "name": "Table",
+      "type": "string",
+      "description": "表格",
+      "search": "equal"
+    },
+    {
+      "name": "QueryField",
+      "type": "string[]",
+      "description": "查询字段"
+    },
+    {
+      "name": "UpdateField",
+      "type": "string[]",
+      "description": "修改字段"
+    },
+    {
+      "name": "InsertField",
+      "type": "string[]",
+      "description": "新增字段"
+    },
+    {
+      "name": "Action",
+      "type": "string[]",
+      "description": "行为"
+    }
+  ]
+}

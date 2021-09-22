@@ -1,0 +1,29 @@
+{
+  "description": "单位",
+  "fields": [
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "名称",
+      "search": "like"
+    },
+    {
+      "name": "City",
+      "type": "string",
+      "description": "城市",
+      "search": "equal"
+    },
+    {
+      "name": "Zone",
+      "type": "string",
+      "description": "城区",
+      "search": "equal"
+    },
+    {
+      "name": "Remark",
+      "type": "string",
+      "description": "备注",
+      "search": "like"
+    }
+  ]
+}
