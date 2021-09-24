@@ -67,7 +67,7 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
   }, [modify])
   // [废弃/还原]请求
   const actionRequest = (action: string, form: { id: (string | undefined)[]; trash: boolean }) =>
-    request('/api/${u(model.name)}/' + action, {
+    request('${u(model.name)}/' + action, {
       method: 'put',
       data: form,
     }).then((result) => {
@@ -88,9 +88,13 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
       }
     })
   // 查询请求
+  useEffect(() => {
+    sourceRequest()
+    countRequest()
+  }, [])
   const [source, setSource] = useState<${model.name}[]>([])
   const sourceRequest = () =>
-    request('/api/${u(model.name)}/query/' + pagination.current + '/' + pagination.pageSize, {
+    request('${u(model.name)}/query/' + pagination.current + '/' + pagination.pageSize, {
       method: 'post',
       data: { trash: trash, ...where, ...props.where },
       headers: {
@@ -107,7 +111,7 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
   // 统计请求
   const [count, setCount] = useState<number>(0)
   const countRequest = () =>
-    request('/api/${u(model.name)}/count', {
+    request('${u(model.name)}/count', {
       method: 'post',
       data: { trash: trash, ...where, ...props.where },
     }).then((result) => {
@@ -119,7 +123,7 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
     })
   // 修改请求
   const updateRequest = (data: any) =>
-    request(`/api/${u(model.name)}`, {
+    request(`${u(model.name)}`, {
       method: 'put',
       data: data,
       headers: {
@@ -128,7 +132,7 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
     })
   // 新增请求
   const insertRequest = (data: any) =>
-    request(`/api/${u(model.name)}`, {
+    request(`${u(model.name)}`, {
       method: 'post',
       data: data,
       headers: {
@@ -144,7 +148,7 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
     })
   // 删除请求
   const removeRequest = (form: { id: (string | undefined)[]; trash: boolean }) =>
-    request(`/api/${u(model.name)}`, {
+    request(`${u(model.name)}`, {
       method: 'delete',
       data: form,
     }).then((result) => {
@@ -170,7 +174,7 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
         <#list model.fields as field>
         <#if field.type == "upload" ||  field.type == "upload[]">
         'upload${field.name}': <FileUpload key="upload${field.name}"
-          data={{id: model.id }} action={"/api/${u(model.name)}/upload/${u(field.name)}"}
+          data={{id: model.id }} action={"${u(model.name)}/upload/${u(field.name)}"}
           onUpload={(file: any) => { model.${u(field.name)} = file }}>
           <IconButton color="info" title="上传${field.description}" icon="CloudUpload" /></FileUpload>,
         </#if>
@@ -186,7 +190,7 @@ export default (props: TableProps<${model.name}, ${model.name}Query>) => {
       'add': <IconButton key="add" icon="Add" title="新增" onClick={() => setAdd(true)} />,
       'search': <IconButton key="search" icon="Search" title="搜索" color={search ? "primary" : "info"} onClick={() => setSearch(!search)} />,
       'refresh': <IconButton key="refresh" title="刷新" icon="Refresh" onClick={(e: any) => setWhere({ ...where })} />,
-      'import': <FileUpload key="import" action={"/api/admin/${u(model.name)}/import"}
+      'import': <FileUpload key="import" action={"admin/${u(model.name)}/import"}
         onUpload={(list: any) => { setWhere({}); }}>
         <IconButton title="导入" icon="Publish" />
       </FileUpload>,
